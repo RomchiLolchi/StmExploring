@@ -97,13 +97,49 @@ int main(void)
   MX_SPI1_Init();
   MX_USB_HOST_Init();
   /* USER CODE BEGIN 2 */
+  //Init LEDs
+  LED_Init();
 
+  //Init Button
+  Button_Init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  const int arraysLengths = 4;
+  uint16_t ledPins [4] = { LD6_Pin, LD5_Pin, LD4_Pin, LD3_Pin };
+  GPIO_TypeDef * ledPorts [4] = { LD6_GPIO_Port, LD5_GPIO_Port, LD4_GPIO_Port, LD3_GPIO_Port };
+  int selectedLedIndex = 0;
+
+  void cycleThroughIndexes()
+  {
+	  if (selectedLedIndex + 1 > arraysLengths - 1)
+	  {
+		  selectedLedIndex = 0;
+	  }
+	  else
+	  {
+		  selectedLedIndex += 1;
+	  }
+  }
+
+  void changeLed()
+    {
+  	  HAL_GPIO_TogglePin(ledPorts[selectedLedIndex], ledPins[selectedLedIndex]);
+  	  cycleThroughIndexes();
+  	  HAL_Delay(500);
+  	  HAL_GPIO_TogglePin(ledPorts[selectedLedIndex], ledPins[selectedLedIndex]);
+  	  HAL_Delay(500);
+    }
+
+  HAL_GPIO_TogglePin(ledPorts[selectedLedIndex], ledPins[selectedLedIndex]);
+
   while (1)
   {
+	if (HAL_GPIO_ReadPin(B1_GPIO_Port, B1_Pin) == GPIO_PIN_SET)
+	{
+		changeLed();
+	}
     /* USER CODE END WHILE */
     MX_USB_HOST_Process();
 

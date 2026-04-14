@@ -130,5 +130,38 @@ void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 2 */
+void LED_Init()
+{
+	GPIO_InitTypeDef GPIO_InitStruct = {0};
 
+	GPIO_InitStruct.Pin = LD6_Pin;
+	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	HAL_GPIO_Init(LD6_GPIO_Port, &GPIO_InitStruct);
+
+	GPIO_InitStruct.Pin = LD5_Pin;
+	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	HAL_GPIO_Init(LD5_GPIO_Port, &GPIO_InitStruct);
+
+	GPIO_InitStruct.Pin = LD4_Pin;
+	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	HAL_GPIO_Init(LD4_GPIO_Port, &GPIO_InitStruct);
+
+	GPIO_InitStruct.Pin = LD3_Pin;
+	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	HAL_GPIO_Init(LD3_GPIO_Port, &GPIO_InitStruct);
+}
+
+void Button_Init()
+{
+	GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+	GPIO_InitStruct.Pin = B1_Pin;
+	GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
+}
 /* USER CODE END 2 */
